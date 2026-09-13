@@ -1,0 +1,9 @@
+node_modules/
+.next/
+out/
+*.zip
+hercalc-platform/
+*.tsbuildinfo
+.env
+.env.*
+!.env.example
