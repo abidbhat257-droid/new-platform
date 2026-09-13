@@ -1,6 +1,6 @@
 # HerCalc
 
-A modern Next.js App Router platform with 300 metadata-driven women's health calculators.
+A modern Next.js App Router platform with a curated registry of distinct women's health calculators.
 
 ## Setup
 
@@ -15,8 +15,8 @@ npm run dev
 
 ## Adding a calculator
 
-Add a typed spec to `specs` in `lib/registry.ts`, select a calculation kind (or add a branch to `calc`), provide fields, methodology, FAQ and related IDs. The registry automatically supplies a static detail route, SEO metadata and sitemap entry.
+Add a typed tuple to `specs` in `lib/registry.ts`, select a calculation kind (or add a branch to `calculate`), provide fields, methodology, FAQ and contextual related IDs. The registry automatically supplies a static detail route, SEO metadata and sitemap entry.
 
 ## Verification and deployment
 
-Run `npm run typecheck`, `npm run lint`, `npm test`, and `npm run build`. Deploy to any Node-compatible Next.js host (Vercel is the simplest option). Replace the example metadataBase in `app/layout.tsx`, sitemap and robots with your production domain.
+Run `npm run typecheck`, `npm run lint`, `npm test`, and `npm run build`. Set `NEXT_PUBLIC_SITE_URL` to the canonical HTTPS origin in production; development safely falls back to `http://localhost:3000`.

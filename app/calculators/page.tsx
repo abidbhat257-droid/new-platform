@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { calculators } from "../../lib/registry";
@@ -30,7 +30,7 @@ export default function Calculators() {
       <div className="mt-8 grid gap-3 md:grid-cols-[1fr_280px]">
         <input
           className="input"
-          placeholder="Search calculators…"
+          placeholder="Search calculators..."
           value={q}
           onChange={(e) => setQ(e.target.value)}
         />
@@ -45,6 +45,13 @@ export default function Calculators() {
         </select>
       </div>
       <p className="mt-6 text-sm text-slate-500">{shown.length} results</p>
+      <div className="mt-4 flex flex-wrap gap-2 text-xs text-slate-600" aria-label="Calculator counts by category">
+        {cats.slice(1).map((category) => (
+          <span key={category} className="rounded-full bg-pink-50 px-3 py-1">
+            {category}: {calculators.filter((c) => c.category === category).length}
+          </span>
+        ))}
+      </div>
       <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {shown.map((c) => (
           <Link

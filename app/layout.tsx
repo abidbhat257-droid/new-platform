@@ -1,19 +1,22 @@
-import "./globals.css";
+﻿import "./globals.css";
 import type { Metadata } from "next";
 import Link from "next/link";
+import { siteUrl } from "../lib/site";
 export const metadata: Metadata = {
   title: {
-    default: "HerCalc — Women’s health calculators",
+    default: "HerCalc - Women's health calculators",
     template: "%s | HerCalc",
   },
   description:
-    "Private, practical calculators for every stage of women’s health.",
-  metadataBase: new URL("https://hercalc.example"),
+    "Private, practical calculators for every stage of women's health.",
+  metadataBase: new URL(siteUrl),
   openGraph: {
     title: "HerCalc",
-    description: "Evidence-informed women’s health calculators",
+    description: "Evidence-informed women's health calculators",
     type: "website",
+    url: siteUrl,
   },
+  robots: { index: true, follow: true },
 };
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -36,8 +39,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <main>{children}</main>
         <footer className="mt-16 border-t border-pink-100 bg-white">
           <div className="mx-auto max-w-6xl px-4 py-8 text-sm text-slate-500">
-            © {new Date().getFullYear()} HerCalc · Educational information, not
-            medical advice. Talk with your clinician about personal decisions.
+            (c) {new Date().getFullYear()} HerCalc - Educational information,
+            not medical advice. Talk with your clinician about personal
+            decisions.
           </div>
         </footer>
       </body>

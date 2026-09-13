@@ -1,8 +1,9 @@
-import { notFound } from "next/navigation";
+﻿import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { bySlug, calculators } from "../../../lib/registry";
 import CalculatorForm from "../../../components/CalculatorForm";
 import Link from "next/link";
+import { siteUrl } from "../../../lib/site";
 export function generateStaticParams() {
   return calculators.map((c) => ({ slug: c.slug }));
 }
@@ -21,7 +22,9 @@ export function generateMetadata({
           title: `${c.title} | HerCalc`,
           description: c.description,
           type: "article",
+          url: `${siteUrl}/calculators/${c.slug}`,
         },
+        alternates: { canonical: `${siteUrl}/calculators/${c.slug}` },
       }
     : { title: "Calculator" };
 }
@@ -38,7 +41,8 @@ export default function Detail({ params }: { params: { slug: string } }) {
     description: c.description,
     applicationCategory: "HealthApplication",
     operatingSystem: "Web",
-    url: `https://hercalc.example/calculators/${c.slug}`,
+    url: `${siteUrl}/calculators/${c.slug}`,
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
   };
   return (
     <div className="mx-auto max-w-5xl px-4 py-12">
@@ -48,7 +52,7 @@ export default function Detail({ params }: { params: { slug: string } }) {
       />
       <div className="mb-8">
         <Link href="/calculators" className="text-sm text-pink-700">
-          ← All calculators
+          Back to all calculators
         </Link>
         <div className="mt-5 text-sm font-semibold uppercase tracking-wide text-pink-600">
           {c.category}

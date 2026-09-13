@@ -1,47 +1,20 @@
-"use client";
+﻿"use client";
 import { useState } from "react";
 import { bySlug } from "../lib/registry";
+import type { Result } from "../lib/types";
+import { validateFields } from "../lib/validation";
 export default function CalculatorForm({ slug }: { slug: string }) {
   const c = bySlug(slug);
   const [values, setValues] = useState<Record<string, string>>({});
-  const [results, setResults] = useState<any[]>([]);
+  const [results, setResults] = useState<Result[]>([]);
   const [error, setError] = useState("");
   if (!c) return null;
   const calculator = c;
   function submit(e: React.FormEvent) {
     e.preventDefault();
-    const missing = calculator.fields.find(
-      (f) => f.required && !values[f.name],
-    );
-    if (missing) {
-      setError(`Please enter ${missing.label.toLowerCase()}.`);
-      setResults([]);
-      return;
-    }
-    const invalid = calculator.fields.find((f) => {
-      const value = values[f.name];
-      if (f.type === "number") {
-        const n = Number(value);
-        return (
-          !Number.isFinite(n) ||
-          (f.min !== undefined && n < f.min) ||
-          (f.max !== undefined && n > f.max)
-        );
-      }
-      if (f.type === "date") {
-        const time = Date.parse(`${value}T12:00:00`);
-        return (
-          !Number.isFinite(time) ||
-          new Date(time).getFullYear() < 1900 ||
-          new Date(time).getFullYear() > new Date().getFullYear() + 2
-        );
-      }
-      return false;
-    });
-    if (invalid) {
-      setError(
-        `Please enter a valid ${invalid.label.toLowerCase()} within the indicated range.`,
-      );
+    const validationError = validateFields(calculator.fields, values);
+    if (validationError) {
+      setError(validationError);
       setResults([]);
       return;
     }
@@ -68,12 +41,15 @@ export default function CalculatorForm({ slug }: { slug: string }) {
               {f.type === "select" ? (
                 <select
                   className="input"
+                  id={f.name}
+                  name={f.name}
+                  required={f.required}
                   value={values[f.name] || ""}
                   onChange={(e) =>
                     setValues({ ...values, [f.name]: e.target.value })
                   }
                 >
-                  <option value="">Choose…</option>
+                  <option value="">Choose...</option>
                   {f.options?.map((o) => (
                     <option key={o.value} value={o.value}>
                       {o.label}
@@ -83,6 +59,9 @@ export default function CalculatorForm({ slug }: { slug: string }) {
               ) : (
                 <input
                   className="input"
+                  id={f.name}
+                  name={f.name}
+                  required={f.required}
                   type={f.type}
                   min={f.min}
                   max={f.max}
