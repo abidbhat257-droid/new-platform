@@ -1,11 +1,11 @@
 ﻿import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { bySlug, calculators } from "../../../lib/registry";
+import { bySlug, activeCalculators } from "../../../lib/registry";
 import CalculatorForm from "../../../components/CalculatorForm";
 import Link from "next/link";
 import { siteUrl } from "../../../lib/site";
 export function generateStaticParams() {
-  return calculators.map((c) => ({ slug: c.slug }));
+  return activeCalculators.map((c) => ({ slug: c.slug }));
 }
 export function generateMetadata({
   params,
@@ -32,7 +32,7 @@ export default function Detail({ params }: { params: { slug: string } }) {
   const c = bySlug(params.slug);
   if (!c) return notFound();
   const related = c.related
-    .map((id) => calculators.find((x) => x.id === id))
+    .map((id) => activeCalculators.find((x) => x.id === id))
     .filter(Boolean);
   const schema = {
     "@context": "https://schema.org",
@@ -64,6 +64,10 @@ export default function Detail({ params }: { params: { slug: string } }) {
       <article className="prose prose-slate mt-12 max-w-none">
         <h2>How this works</h2>
         <p>{c.methodology}</p>
+        <h2>Worked example</h2>
+        <p>{c.workedExample}</p>
+        <h2>Limitations</h2>
+        <p>{c.limitations}</p>
         <h2>Common questions</h2>
         {c.faq.map((f) => (
           <div key={f.q}>

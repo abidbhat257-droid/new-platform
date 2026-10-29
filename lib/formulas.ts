@@ -12,6 +12,12 @@ export const daysBetween = (a: string, b: string) =>
 export const round = (n: number, d = 0) =>
   Number(Number.isFinite(n) ? n.toFixed(Math.max(0, Math.min(100, d))) : "0");
 export const bmi = (kg: number, cm: number) => kg / (cm / 100) ** 2;
+export const kgFromInput = (value: number, unit = "kg") =>
+  unit === "lb" ? value * 0.45359237 : value;
+export const cmFromInput = (value: number, unit = "cm") =>
+  unit === "ft+in" ? value * 30.48 : value;
+export const mlFromInput = (value: number, unit = "ml") =>
+  unit === "oz" ? value * 29.5735 : value;
 export const bmr = (kg: number, cm: number, age: number, sex = "female") =>
   10 * kg + 6.25 * cm - 5 * age + (sex === "female" ? -161 : 5);
 export const fmtDate = (s: string) =>

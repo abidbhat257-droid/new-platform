@@ -18,6 +18,7 @@ export type Field = {
   max?: number;
   step?: number;
   options?: { label: string; value: string }[];
+  unitOptions?: { label: string; value: string }[];
   required?: boolean;
 };
 export type Result = { label: string; value: string; detail?: string };
@@ -33,6 +34,8 @@ export type Calculator = {
   methodology: string;
   faq: { q: string; a: string }[];
   related: string[];
-  status: "active";
+  status: "active" | "draft" | "coming-soon" | "deprecated";
   tests: string[];
+  workedExample: string;
+  limitations: string;
 };
