@@ -1,6 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.btn-secondary {
+  @apply rounded-lg border border-pink-200 px-3 py-2 text-sm font-semibold text-pink-700 hover:bg-pink-50;
+}
 :root {
   color-scheme: light;
 }

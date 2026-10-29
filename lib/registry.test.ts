@@ -28,5 +28,7 @@ describe("curated calculator registry", () => {
     expect(bmi?.calculate({ weight: "70", height: "170" })[0].value).toBe("24.2");
     const due = calculators.find((calculator) => calculator.id === "pregnancy-due-date");
     expect(due?.calculate({ lastPeriod: "2025-01-01" })[0].value).toContain("Oct");
+    const iui = calculators.find((calculator) => calculator.id === "iui-due-date");
+    expect(iui?.calculate({ iuiDate: "2025-01-01" })[0].value).toContain("Sep");
   });
 });

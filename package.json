@@ -9,6 +9,7 @@
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
+    "validate": "node scripts/validate.mjs",
     "format": "prettier --write ."
   },
   "dependencies": {

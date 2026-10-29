@@ -10,6 +10,16 @@ export default function CalculatorForm({ slug }: { slug: string }) {
   const [error, setError] = useState("");
   if (!c) return null;
   const calculator = c;
+  function reset() {
+    setValues({});
+    setResults([]);
+    setError("");
+  }
+  async function share() {
+    const url = window.location.href;
+    if (navigator.share) await navigator.share({ title: calculator.title, url });
+    else await navigator.clipboard.writeText(url);
+  }
   function submit(e: React.FormEvent) {
     e.preventDefault();
     const validationError = validateFields(calculator.fields, values);
@@ -75,6 +85,20 @@ export default function CalculatorForm({ slug }: { slug: string }) {
               {f.unit && (
                 <span className="text-xs text-slate-500">{f.unit}</span>
               )}
+              {f.unitOptions && (
+                <select
+                  className="input max-w-28"
+                  aria-label={`${f.label} unit`}
+                  value={values[`${f.name}Unit`] || f.unitOptions[0].value}
+                  onChange={(e) =>
+                    setValues({ ...values, [`${f.name}Unit`]: e.target.value })
+                  }
+                >
+                  {f.unitOptions.map((o) => (
+                    <option key={o.value} value={o.value}>{o.label}</option>
+                  ))}
+                </select>
+              )}
             </div>
           </label>
         ))}
@@ -89,6 +113,11 @@ export default function CalculatorForm({ slug }: { slug: string }) {
         <button className="btn w-full" type="submit">
           Calculate
         </button>
+        <div className="flex gap-2">
+          <button className="btn-secondary flex-1" type="button" onClick={reset}>Reset</button>
+          <button className="btn-secondary flex-1" type="button" onClick={() => window.print()}>Print</button>
+          <button className="btn-secondary flex-1" type="button" onClick={share}>Share</button>
+        </div>
         <p className="text-xs text-slate-500">
           Your entries stay in this browser and are never saved.
         </p>

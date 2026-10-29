@@ -1,0 +1,3 @@
+# Medical methodology
+
+Formulas are intentionally transparent and labelled as estimates. Date tools use standard calendar conventions (280 days from last menstrual period, 266 days from conception/IUI, and ovulation approximately 14 days before the next period). BMI, BMR, activity energy, nutrition references and symptom scores are screening or educational references, not diagnoses. Individual variation, medication, medical history, pregnancy context and measurement error can materially change results. Seek qualified clinical care for symptoms, urgent concerns or decisions about treatment and contraception.

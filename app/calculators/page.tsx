@@ -1,17 +1,17 @@
 ﻿"use client";
 import Link from "next/link";
 import { useMemo, useState } from "react";
-import { calculators } from "../../lib/registry";
+import { activeCalculators } from "../../lib/registry";
 export default function Calculators() {
   const [q, setQ] = useState("");
   const [cat, setCat] = useState("All");
   const cats = [
     "All",
-    ...Array.from(new Set(calculators.map((c) => c.category))),
+    ...Array.from(new Set(    activeCalculators.map((c) => c.category))),
   ];
   const shown = useMemo(
     () =>
-      calculators.filter(
+      activeCalculators.filter(
         (c) =>
           (cat === "All" || c.category === cat) &&
           `${c.title} ${c.description} ${c.keywords.join(" ")}`
@@ -24,7 +24,7 @@ export default function Calculators() {
     <div className="mx-auto max-w-6xl px-4 py-12">
       <h1 className="text-4xl font-bold">All calculators</h1>
       <p className="mt-3 max-w-2xl text-slate-600">
-        Explore {calculators.length} free tools. No account, no tracking, no
+        Explore {activeCalculators.length} free tools. No account, no tracking, no
         saved health data.
       </p>
       <div className="mt-8 grid gap-3 md:grid-cols-[1fr_280px]">
@@ -48,7 +48,7 @@ export default function Calculators() {
       <div className="mt-4 flex flex-wrap gap-2 text-xs text-slate-600" aria-label="Calculator counts by category">
         {cats.slice(1).map((category) => (
           <span key={category} className="rounded-full bg-pink-50 px-3 py-1">
-            {category}: {calculators.filter((c) => c.category === category).length}
+            {category}: {            activeCalculators.filter((c) => c.category === category).length}
           </span>
         ))}
       </div>
